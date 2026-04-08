@@ -1,0 +1,34 @@
+// Minimal audio probe for Stellarium scripting.
+// Replace AUDIO_PATH with an absolute path to a local audio file before running.
+
+var AUDIO_PATH = "/absolute/path/to/audio.mp3";
+var SOUND_ID = "codex-audio-probe";
+
+LabelMgr.deleteAllLabels();
+
+function note(text, y, color) {
+  var id = LabelMgr.labelScreen(text, 40, y, false, 20, color || "#F8FAFC");
+  LabelMgr.setLabelShow(id, true);
+  return id;
+}
+
+note("Audio probe", 40, "#FFD166");
+note("Path: " + AUDIO_PATH, 72, "#CBD5E1");
+
+try {
+  if (AUDIO_PATH == "/absolute/path/to/audio.mp3") {
+    throw "Edit AUDIO_PATH first";
+  }
+  if (typeof StelAudioMgr !== "undefined" && StelAudioMgr.loadSound) {
+    StelAudioMgr.loadSound(AUDIO_PATH, SOUND_ID);
+    note("Loaded via StelAudioMgr: " + SOUND_ID, 110, "#A7F3D0");
+    StelAudioMgr.playSound(SOUND_ID);
+  } else {
+    loadSound(AUDIO_PATH, SOUND_ID);
+    note("Loaded via script API: " + SOUND_ID, 110, "#A7F3D0");
+    playSound(SOUND_ID);
+  }
+  note("Playback requested. Listen for a short pluck.", 144, "#A7F3D0");
+} catch (err) {
+  note("Audio probe error: " + err, 144, "#FF5555");
+}

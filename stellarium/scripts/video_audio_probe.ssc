@@ -1,0 +1,42 @@
+// Probe whether StelVideoMgr can load and play an MP3 directly.
+// Replace AUDIO_PATH with an absolute path to a local audio file before running.
+
+var AUDIO_PATH = "/absolute/path/to/audio.mp3";
+var VIDEO_ID = "codex-video-audio-probe";
+
+LabelMgr.deleteAllLabels();
+
+function note(text, y, color) {
+  var id = LabelMgr.labelScreen(text, 40, y, false, 20, color || "#F8FAFC");
+  LabelMgr.setLabelShow(id, true);
+  return id;
+}
+
+note("StelVideoMgr MP3 probe", 40, "#FFD166");
+note("Path: " + AUDIO_PATH, 72, "#CBD5E1");
+
+try {
+  if (AUDIO_PATH == "/absolute/path/to/audio.mp3") {
+    throw "Edit AUDIO_PATH first";
+  }
+  if (typeof StelVideoMgr === "undefined" || !StelVideoMgr.loadVideo) {
+    throw "StelVideoMgr is not available in this script environment";
+  }
+
+  StelVideoMgr.loadVideo(AUDIO_PATH, VIDEO_ID, 0, 0, false, 0.0);
+  StelVideoMgr.resizeVideo(VIDEO_ID, 1, 1);
+  StelVideoMgr.showVideo(VIDEO_ID, false);
+  StelVideoMgr.muteVideo(VIDEO_ID, false);
+  StelVideoMgr.setVideoVolume(VIDEO_ID, 100);
+  note("Loaded via StelVideoMgr id: " + VIDEO_ID, 110, "#A7F3D0");
+
+  StelVideoMgr.playVideo(VIDEO_ID);
+  note("Playback requested. Listen for a short pluck.", 144, "#A7F3D0");
+
+  core.wait(0.3);
+  var dur = StelVideoMgr.getVideoDuration(VIDEO_ID);
+  var pos = StelVideoMgr.getVideoPosition(VIDEO_ID);
+  note("Duration(ms): " + dur + "  Position(ms): " + pos, 178, "#93C5FD");
+} catch (err) {
+  note("Video-audio probe error: " + err, 144, "#FF5555");
+}

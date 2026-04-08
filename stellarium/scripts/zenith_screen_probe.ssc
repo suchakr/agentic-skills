@@ -1,0 +1,23 @@
+// Label the current screen center, which is the zenith when the view is centered on alt=90.
+
+var w = core.getScreenWidth();
+var h = core.getScreenHeight();
+var cx = Math.round(w / 2);
+var cy = Math.round(h / 2);
+
+LabelMgr.deleteAllLabels();
+var title = LabelMgr.labelScreen("Zenith probe", 40, 40, false, 24, "#FFD166");
+LabelMgr.setLabelShow(title, true);
+
+var info = LabelMgr.labelScreen(
+  "Screen " + w + "x" + h + "  |  center (" + cx + ", " + cy + ")",
+  40,
+  74,
+  false,
+  20,
+  "#F8FAFC"
+);
+LabelMgr.setLabelShow(info, true);
+
+var marker = LabelMgr.labelScreen("+", cx, cy, false, 32, "#FF5555");
+LabelMgr.setLabelShow(marker, true);

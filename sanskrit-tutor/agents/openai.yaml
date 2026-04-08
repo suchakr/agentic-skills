@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kovidah Sanskrit Tutor"
+  short_description: "Adaptive Sanskrit tutor for writing and verses"
+  default_prompt: "Use $sanskrit-tutor to run a mixed adaptive Sanskrit session with correction, verse parsing, and targeted drills."
