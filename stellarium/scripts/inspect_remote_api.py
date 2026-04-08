@@ -12,7 +12,7 @@ from pathlib import Path
 
 
 DEFAULT_BASE_URL = "http://127.0.0.1:8090/api"
-DEFAULT_OUTPUT = Path("skills/stellarium/references/remote-api-inventory.json")
+DEFAULT_OUTPUT = Path(__file__).resolve().parent.parent / "references" / "remote-api-inventory.json"
 
 
 def fetch_json(url: str) -> object:

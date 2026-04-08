@@ -1,6 +1,8 @@
 # Agentic Skills
 
-A personal collection of reusable skills for AI coding agents.
+A collection of reusable [agent skills](https://agentskills.io/) for AI coding agents.
+
+Skills follow the open `SKILL.md` standard and work with any compatible agent platform.
 
 ## Convention
 
@@ -36,30 +38,44 @@ Remote control and scripting for a running Stellarium instance via the Remote Co
 
 ## Installation
 
-Each agent platform has its own skills directory. Installation is a symlink from that directory to the skill folder in this repo.
-
-### OpenAI Codex CLI
+Clone this repo, then symlink each skill into your agent's skills directory.
 
 ```bash
-ln -s /path/to/agentic-skills/<skill-name> ~/.codex/skills/<skill-name>
+git clone https://github.com/suchakr/agentic-skills.git
 ```
 
-For example:
+### Per-platform paths
+
+**OpenAI Codex CLI** — `~/.codex/skills/`
 
 ```bash
-ln -s ~/projects/agentic-skills/sanskrit-tutor ~/.codex/skills/sanskrit-tutor
-ln -s ~/projects/agentic-skills/stellarium ~/.codex/skills/stellarium
+ln -s /path/to/agentic-skills/sanskrit-tutor ~/.codex/skills/sanskrit-tutor
+ln -s /path/to/agentic-skills/stellarium ~/.codex/skills/stellarium
 ```
 
-### Warp / Oz
+**Warp / Oz** — discovers from `~/.codex/skills/` (same symlinks as Codex CLI).
 
-Warp discovers skills from the same `~/.codex/skills/` directory, so the Codex CLI symlinks above also make skills available to Warp's Oz agent.
+**GitHub Copilot CLI** — `~/.copilot/skills/` or `~/.agents/skills/`
+
+```bash
+mkdir -p ~/.copilot/skills
+ln -s /path/to/agentic-skills/sanskrit-tutor ~/.copilot/skills/sanskrit-tutor
+ln -s /path/to/agentic-skills/stellarium ~/.copilot/skills/stellarium
+```
+
+**Google Antigravity** — `~/.gemini/antigravity/skills/`
+
+```bash
+mkdir -p ~/.gemini/antigravity/skills
+ln -s /path/to/agentic-skills/sanskrit-tutor ~/.gemini/antigravity/skills/sanskrit-tutor
+ln -s /path/to/agentic-skills/stellarium ~/.gemini/antigravity/skills/stellarium
+```
 
 ### Other agents
 
-Any agent that resolves skills via a `SKILL.md` entry point can use these skills. Symlink or copy the skill directory into the agent's expected skills location.
+Any agent that supports the `SKILL.md` open standard can use these skills. Symlink or copy the skill directory into the agent's expected skills location.
 
-If the agent supports agent-specific config, check the skill's `agents/` subdirectory for a matching config file.
+If the agent supports agent-specific config, check the skill's `agents/` subdirectory for a matching file (e.g. `agents/openai.yaml` for Codex CLI).
 
 ## Development
 
