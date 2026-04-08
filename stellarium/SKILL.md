@@ -65,6 +65,14 @@ Rule of thumb: set altitude ≈ FOV / 3 to place the horizon in the lower third 
 
 For example, Varanasi is UTC+05:53. To set local 06:30, send UTC 00:37.
 
+## Readiness Check
+
+Before any control sequence, verify Stellarium is reachable:
+
+    curl -s http://localhost:8090/api/main/status | python3 -m json.tool
+
+If this fails, Remote Control is not running. Instruct the user to enable it in Stellarium → Configuration → Plugins → Remote Control → enable at startup.
+
 ## Core Helpers
 
 This skill may use local helper scripts when available.
@@ -76,6 +84,57 @@ This skill may use local helper scripts when available.
   Snapshot and inspect the live API surface from the current Stellarium build.
 
 These helpers are implementation details. The user should not need to think in terms of raw HTTP calls unless debugging.
+
+### stelrc.py quick reference
+
+State inspection:
+
+    stelrc.py status
+    stelrc.py view
+
+Navigation:
+
+    stelrc.py goto-time "1000-12-21T00:37:00" [--timerate 200]
+    stelrc.py goto-direction E [--alt 20]
+    stelrc.py location show
+    stelrc.py location search "Varanasi"
+    stelrc.py location goto --latitude 25.32 --longitude 83.01 [--altitude 80] [--name "Varanasi"]
+    stelrc.py focus Jupiter [--mode center|zoom|mark]
+    stelrc.py fov 60
+
+Overlay toggles (on | off | toggle | show):
+
+    stelrc.py atmosphere on
+    stelrc.py constellation-lines toggle
+    stelrc.py grid equatorial on
+
+Sky culture:
+
+    stelrc.py skyculture list
+    stelrc.py skyculture set indian
+
+Scripting:
+
+    stelrc.py script-direct 'core.moveToAltAzi(20, 90, 0);'
+    stelrc.py run-file path/to/script.ssc
+
+Properties and actions:
+
+    stelrc.py property list [query]
+    stelrc.py property get "StelMovementMgr.autoMoveDuration"
+    stelrc.py property set "StelMovementMgr.autoMoveDuration" 1.0
+    stelrc.py action list [query]
+    stelrc.py action run actionToggleNightMode
+
+Labels:
+
+    stelrc.py label-screen "Hello" --x 100 --y 100 [--size 24] [--color "#FFFFFF"]
+
+### inspect_remote_api.py quick reference
+
+    inspect_remote_api.py [--base-url URL] [--output PATH]
+
+Saves a full inventory of properties, actions, and endpoints to JSON.
 
 ## Expected Workflow
 
@@ -130,6 +189,12 @@ When the supported surface is unclear for the current build:
 See:
 
 - `references/api-discovery.md`
+
+## Cross-skill Coordination
+
+When the astronomical scene requires interpreting a Sanskrit source text, coordinate with the `sanskrit-tutor` skill for verse parsing, compound analysis, or Jyotisha vocabulary clarification before setting the Stellarium scene.
+
+If `sanskrit-tutor` is not installed, transliterate key terms and note that a full grammatical analysis requires the sanskrit-tutor skill.
 
 ## Scope
 

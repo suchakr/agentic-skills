@@ -72,6 +72,12 @@ Adaptation policy:
 3. Maintain correction-to-practice ratio near `1:1`.
 4. Keep each turn practical; avoid long lectures unless requested.
 
+## Cross-skill Coordination
+
+When a verse contains a datable astronomical reference — a nakṣatra, planetary conjunction, tithi, or seasonal marker — coordinate with the `stellarium` skill to visualise the corresponding sky. Parse the verse first, identify the astronomical anchor, then hand off coordinates and epoch to Stellarium.
+
+If `stellarium` is not installed, note the astronomical anchor (nakṣatra, epoch, coordinates) in your response so the user can follow up manually.
+
 ## Referenced resources
 
 Load only what is needed:
