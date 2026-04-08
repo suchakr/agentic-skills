@@ -16,9 +16,23 @@ Each skill lives in its own directory with a `SKILL.md` entry point that defines
 
 Scholarly Sanskrit tutor focused on Paninian grammar (Ashtadhyayi), shloka analysis, and adaptive learner coaching. Supports composition correction, verse parsing (padachheda/anvaya), compound and morphology analysis, drill generation, and mixed tutoring sessions including technical Jyotisha contexts. Adopts the persona "कोविदः".
 
+**Prerequisites:** None — pure prompt and reference material.
+
+**Try:**
+- `"Check my Sanskrit: मम गृहे एकः वृक्षः अस्ति"` — composition correction
+- `"Parse: धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः"` — verse analysis
+- `"Run a mixed tutoring session at intermediate level"` — adaptive drilling
+
 ### stellarium
 
 Remote control and scripting for a running Stellarium instance via the Remote Control HTTP plugin. Handles camera movement, overlay toggles, time/location changes, `.ssc` script authoring, and media playback probing. Uses a lightweight-first strategy: HTTP for live tweaks, direct script calls for sticky features, `.ssc` artifacts for reusable sequences.
+
+**Prerequisites:** Python 3 (stdlib only, no pip packages). A running [Stellarium](https://stellarium.org/) instance with the Remote Control plugin enabled (default port 8090).
+
+**Try:**
+- `"Show the sky from Varanasi on winter solstice, 1000 CE"`
+- `"Point at Jupiter and zoom to 20° FOV"`
+- `"Write an .ssc script that tours the planets"`
 
 ## Installation
 

@@ -1,6 +1,10 @@
 ---
 name: stellarium
 description: "Use for controlling a running Stellarium instance through Remote Control HTTP and Stellarium scripting: inspect and change scene settings, move the camera, manage overlays and labels, run direct or file-based `.ssc` scripts, and probe optional media playback support."
+prerequisites:
+  runtime: [python3]
+  external: [Stellarium with Remote Control plugin enabled on port 8090]
+  pip: []
 ---
 
 # Stellarium
@@ -26,13 +30,40 @@ Use this skill for tasks such as:
 Use the lightest control path that fits the task.
 
 1. Prefer Remote Control HTTP for interactive tweaks.
-   This is best for small live changes: camera movement, toggles, labels, time shifts, and state inspection.
+   This is best for small live changes: toggles, labels, and state inspection.
 
 2. Use direct Stellarium script calls when a feature is exposed in scripting but does not behave reliably through generic property writes.
    Some features may appear writable as properties but only stick when invoked through script methods.
 
 3. Use `.ssc` when the sequence should become portable or repeatable.
    A stable Stellarium demo, lesson flow, or scene setup should usually end up as a script artifact.
+
+## Camera Control
+
+Camera direction and FOV do not stick reliably through HTTP property writes. Use direct script calls as the default path — do not wait for a failure before switching.
+
+- **Direction:** `core.moveToAltAzi(alt, azi, duration)` where alt is degrees above horizon and azi is compass bearing (0=N, 90=E, 180=S, 270=W). Use `duration=0` for instant moves.
+- **FOV:** `StelMovementMgr.zoomTo(fov, duration)` where fov is in degrees.
+
+Example (look east, 20° above horizon, 60° FOV):
+
+    core.moveToAltAzi(20, 90, 0); StelMovementMgr.zoomTo(60, 0);
+
+### Horizon framing
+
+When the user wants the horizon visible (sunrise, moonrise, landscape shots), the camera altitude must account for FOV. Half the vertical FOV extends below the aim point — if altitude is too low, the ground fills the screen.
+
+Rule of thumb: set altitude ≈ FOV / 3 to place the horizon in the lower third of the frame.
+
+- FOV 60° → altitude ~20°
+- FOV 90° → altitude ~30°
+- FOV 40° → altitude ~13°
+
+## Time
+
+`stelrc.py goto-time` accepts UTC, not local time. The agent must manually offset for the location's UTC shift (visible in `status` output as `gmtShift`).
+
+For example, Varanasi is UTC+05:53. To set local 06:30, send UTC 00:37.
 
 ## Core Helpers
 

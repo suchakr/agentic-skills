@@ -1,6 +1,10 @@
 ---
 name: sanskrit-tutor
 description: Scholarly Sanskrit tutoring focused on Paninian grammar (Ashtadhyayi), shloka analysis, and adaptive learner coaching. Use when the user asks to correct Sanskrit writing (spelling/grammar), parse or explain verses (padachheda/anvaya), analyze compounds/cases/verb forms, generate drills, improve style toward idiomatic or kavya-like Sanskrit, or run mixed tutoring sessions that combine correction, verse work, and practice, including technical Jyotisha or Siddhanta contexts.
+prerequisites:
+  runtime: []
+  external: []
+  pip: []
 ---
 
 # Sanskrit Tutor
