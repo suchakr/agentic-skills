@@ -77,6 +77,12 @@ If this fails, Remote Control is not running. Instruct the user to enable it in 
 
 This skill may use local helper scripts when available.
 
+- `scripts/stell_view.py`
+  Vedic sky visualization preset. Sets location, time, Indian sky culture, overlays, and view in one command.
+  Usage: `python3 stell_view.py --date YYYY-MM-DD --time HH:MM --place <city> [--view chakra|east|north|south|west] [--fov 200]`
+  Views: `chakra` = full rashi wheel (ecliptic pole centered, location/time invariant); cardinal horizon views use `core.moveToAltAzi` compass convention (0=N, 90=E).
+  Known cities: Mysore, Chennai, Bangalore, Mumbai, Delhi, Kolkata, Hyderabad, Pune, Kochi, Varanasi, Ujjain, Tirupati, Madurai, Coimbatore. Also accepts `lat,lon`.
+
 - `scripts/stelrc.py`
   Generic wrapper for Remote Control HTTP, property and action inspection, file-based script execution, and common alias commands.
 
